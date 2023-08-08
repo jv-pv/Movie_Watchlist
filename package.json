@@ -1,0 +1,12 @@
+{
+  "name": "movie_watchlist",
+  "version": "1.0.0",
+  "description": "API practice project using OMDp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "John Pieri",
+  "license": "ISC"
+}
