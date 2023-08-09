@@ -8,7 +8,30 @@
 </head>
 <body>
     <main>
-        <h1>Movie Watchlist</h1>
+        <section class="title-search-wrapper">
+            <header>
+                <h1>Find your film</h1>
+                <p>My Watchlist</p>
+            </header>
+            <div>
+                <input type="search" name="search-bar" id="search-bar" placeholder="Search for a movie">
+                <button type="submit" class="submit-btn">Search</button>
+            </div>
+        </section>
+        <section class="movies-container">
+            <div class="movie-wrapper">
+                <img src="#" alt="movie-image">
+                <span class="title-rating">
+                    <h2 class="movie-title">Blade Runner</h2>
+                    <p class="movie-rating">8.1</p>
+                </span>
+                <span class="runtime-genres">
+                    <p class="movie-runtime">117min</p>
+                    <p class="movie-genres">Action, Drama, Sci-fi</p>
+                    <p><a href=""><i>Icon</i></a>Watchlist</p>
+                </span>
+            </div>
+        </section>
     </main>
     <script src="index.js"></script>
 </body>
