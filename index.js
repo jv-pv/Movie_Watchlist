@@ -1,9 +1,9 @@
-const apiKey = '4ce09e3'
+const apiKey = "bc32164e";
 
 function fetchAPI() {
-    fetch(`http://www.omdbapi.com/?apikey=4ce09e3&`)
-    .then(response => response.json())
-    .then(data => console.log(data))
+  fetch("http://www.omdbapi.com/?apikey=[bc32164e]&", {method: "GET"})
+    .then((response) => response.json())
+    .then((data) => console.log(data));
 }
 
-fetchAPI()
+fetchAPI();
