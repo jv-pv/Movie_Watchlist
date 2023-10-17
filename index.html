@@ -5,26 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Movie Watchlist</title>
 </head>
 
 <body>
-    <main>
-        <section class="title-search-wrapper">
-            <header class="section-header">
-                <div class="header-text">
-                    <h1>Find your film</h1>
-                    <p>My Watchlist</p>
-                </div>
-                <img src="./images/header-background-image.png" alt="section-background" class="section-background">
-                <div class="section-search">
+
+    <section class="title-search-wrapper">
+
+        <header class="section-header">
+            <!-- Header text -->
+            <div class="header-text-wrapper">
+                <h1>Find your film</h1>
+                <a href="#" class="watchlist">
+                <p>My Watchlist</p>
+                </a>
+            </div>
+            <!-- header search bar -->
+            <div class="section-search-container" method="get" target="_blank">
+                <form method="get">
+                    <label for="search-bar">
+                        <i class="fa fa-search"></i>
+                    </label>
                     <input type="search" name="search-bar" id="search-bar" placeholder="Search for a movie">
                     <button type="submit" class="submit-btn">Search</button>
-                </div>
-            </header>
-        </section>
+                </form>
+            </div>
+            <!-- header image -->
+            <img src="./images/header-background-image.png" alt="section-background" class="section-background">
+        </header>
+
+    </section>
+
+    <main>
         <section class="movies-container">
-            <div class="movie-wrapper">
+            <div class="empty-search-wrapper">
+                <img src="./icons/Icon.svg" alt="a film icon" class="empty-search-icon">
+                <p>Start exploring</p>
+            </div>
+            <!-- <div class="movie-wrapper">
                 <img src="#" alt="movie-image">
                 <div class="title-rating">
                     <h2 class="movie-title">Blade Runner</h2>
@@ -38,7 +59,7 @@
                 <div class="movie-descrip">
                     A blade runner must pursue and terminate four replicants who stole a ship in space, and have
                     returned to Earth to find their creator.
-                </div>
+                </div> -->
             </div>
         </section>
     </main>
