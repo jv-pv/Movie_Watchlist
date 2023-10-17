@@ -13,14 +13,15 @@
 
 <body>
 
-    <section class="title-search-wrapper">
-
-        <header class="section-header">
+    <header>
+        <!-- Header bg image -->
+        <img src="./images/header-background-image.png" alt="section-background" class="section-background">
+        <div class="inner-container">
             <!-- Header text -->
             <div class="header-text-wrapper">
                 <h1>Find your film</h1>
-                <a href="#" class="watchlist">
-                <p>My Watchlist</p>
+                <a href="#">
+                    <p>My Watchlist</p>
                 </a>
             </div>
             <!-- header search bar -->
@@ -30,16 +31,14 @@
                         <i class="fa fa-search"></i>
                     </label>
                     <input type="search" name="search-bar" id="search-bar" placeholder="Search for a movie">
-                    <button type="submit" class="submit-btn">Search</button>
+                    <button type="submit" class="submit-btn" id="search-button">Search</button>
                 </form>
             </div>
-            <!-- header image -->
-            <img src="./images/header-background-image.png" alt="section-background" class="section-background">
-        </header>
-
-    </section>
+        </div>
+    </header>
 
     <main>
+
         <section class="movies-container">
             <div class="empty-search-wrapper">
                 <img src="./icons/Icon.svg" alt="a film icon" class="empty-search-icon">
@@ -62,6 +61,7 @@
                 </div> -->
             </div>
         </section>
+
     </main>
     <script src="index.js"></script>
 </body>
