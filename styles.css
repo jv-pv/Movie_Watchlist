@@ -204,10 +204,12 @@ main {
 .movie-wrapper {
     display: flex;
     flex-direction: row;
+    align-items: center;
     gap: 1.5rem;
     padding-block-end: 1rem;
     margin-block-end: 1rem;
     border-bottom: 2px solid var(--gray-500);
+    transition: all 500ms;
 }
 
 .movie-wrapper img {
@@ -280,4 +282,32 @@ main {
 .empty-watchlist-wrapper p:nth-of-type(1) {
     color: var(--gray-300);
     margin-block-end: 1rem;
+}
+
+@media screen and (max-width: 490px) {
+
+    .movie-wrapper * {
+        transition: all 500ms;
+    }
+
+    .movie-wrapper img {
+        width: 9rem;
+        height: 9rem;
+    }
+
+    .title-rating h2 {
+        font-size: var(--step-1);
+    }
+
+    .title-rating p {
+        font-size: var(--step--1);
+    }
+
+    .runtime-genres p {
+        font-size: var(--step--2);
+    }
+
+    .movie-descrip {
+        font-size: var(--step--1);
+    }
 }
