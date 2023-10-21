@@ -2,7 +2,10 @@ const apiKey = "4ce09e3";
 const searchBar = document.getElementById('search-bar')
 const searchButton = document.getElementById('search-button')
 const resultsContainerEl = document.querySelector('.results-container')
-let imbdIDArray = []
+
+let imdbIDArray = []
+
+// let localStorageWatchlist = 
 
 document.addEventListener('DOMContentLoaded', () => {
  renderPage()
@@ -13,25 +16,87 @@ document.addEventListener('click', (e) => {
     e.preventDefault()
     let inputValue = searchBar.value
     fetchSearchValue(inputValue)
+    document.querySelector('form').reset()
+  } else if (e.target.dataset.add) {
+    let movieID = e.target.dataset.add
+    console.log(movieID)
   }
 })
 
 async function fetchSearchValue(searchValue) {
-  let response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}`, {method: "GET"})
-  
-  if (!response.ok) {
-    throw new Error ("Network response not ok")
+  if (!searchValue) {
+    renderSearchPagePlaceholder()
   } else {
-    let data = await response.json()
-    if (data.Response === "False") {
-      throw Error ("Movie not found!")
+
+    let response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${searchValue}`, {method: "GET"})
+    
+    if (!response.ok) {
+      throw new Error ("Network response not ok")
     } else {
-      let searchResults = data.Search 
-      console.log(searchResults)
-      let
+      let data = await response.json()
+      if (data.Response === "False") {
+        throw Error ("Movie not found!")
+      } else {
+        let searchResults = data.Search
+        if (imdbIDArray.length > 0) {
+          imdbIDArray = []
+        }
+        let addedTitleSet = new Set()
+        searchResults.forEach(result => {
+          let searchResultID = result.imdbID
+          if (result.Title && !addedTitleSet.has(result.Title.toLowerCase())) {
+            addedTitleSet.add(result.Title.toLowerCase())
+            imdbIDArray.push(searchResultID)
+          }
+        })
+        getMoviesFromSearch()
+      }
     }
   }
 
+}
+
+async function getMoviesFromSearch() {
+  resultsContainerEl.innerHTML = ""
+  for (let id of imdbIDArray) {
+    let response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&i=${id}`)
+    
+    if (!response.ok) {
+      throw new Error ('Network response not ok')
+    } else {
+      let data = await response.json()
+      const {Title, Poster, Plot, imdbRating, imdbID, Runtime, Genre} = data
+      console.log(Poster)
+      resultsContainerEl.innerHTML += `
+      <div class="movie-wrapper">
+
+      <img src="${Poster}" alt="movie-image" class="movie-poster">
+
+        <div class="movie-metadata">
+
+            <div class="title-rating">
+                <h2 class="movie-title">${Title}</h2>
+                <p class="movie-rating"><i class="fa-solid fa-star" style="color: #ffea00;"></i> ${imdbRating}</p>
+            </div>
+            <div class="runtime-genres">
+                <p class="movie-runtime">${Runtime}</p>
+                <p class="movie-genres">${Genre}</p>
+                <p><i class="fa-solid fa-circle-plus fa-lg" data-add="${imdbID}"></i> Watchlist</p>
+            </div>
+            <div class="movie-descrip">
+                ${Plot}
+            </div>
+
+
+        </div>
+
+
+      </div>
+  `
+    }
+  }
+    
+  
 }
 
 function renderSearchPagePlaceholder() {
@@ -56,11 +121,10 @@ function renderPage() {
   let currentPage = document.body.id 
   switch (currentPage) {
     case "search-page":
-    renderSearchPagePlaceholder()
+    fetchSearchValue()
     break
     case "watchlist-page": 
     renderWatchlistPagePlaceholder()
     break
   }
 }
-
