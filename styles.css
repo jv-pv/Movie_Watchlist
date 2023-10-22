@@ -190,7 +190,6 @@ main {
 .results-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     width: min(90%, 750px);
     margin-inline: auto;
@@ -209,8 +208,8 @@ main {
 }
 
 .movie-poster {
-    width: 9.3rem;
-    height: 9.3rem;
+    width: 9.9rem;
+    height: auto;
     object-fit: cover;
 }
 
@@ -247,7 +246,6 @@ main {
 
 .movie-descrip {
     color: var(--gray-300, #374151);
-    overflow: scroll;
 }
 
 /* Empty search results icon */
