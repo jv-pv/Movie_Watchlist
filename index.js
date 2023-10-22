@@ -14,6 +14,8 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('click', (e) => {
   if (e.target.matches('.submit-btn')) {
     e.preventDefault()
+    resultsContainerEl.innerHTML = ""
+    showLoading()
     let inputValue = searchBar.value
     fetchSearchValue(inputValue)
     document.querySelector('form').reset()
@@ -66,11 +68,14 @@ async function getMoviesFromSearch() {
     } else {
       let data = await response.json()
       const {Title, Poster, Plot, imdbRating, imdbID, Runtime, Genre} = data
-      console.log(Poster)
+      let img = document.createElement('img')
+      img.src = Poster !== "N/A" ? Poster : "./images/blade_runner_placeholder.png"
+      img.alt = "Movie Poster"
+      img.className = "movie-poster"
       resultsContainerEl.innerHTML += `
       <div class="movie-wrapper">
 
-      <img src="${Poster}" alt="movie-image" class="movie-poster">
+      ${img.outerHTML}
 
         <div class="movie-metadata">
 
@@ -95,7 +100,6 @@ async function getMoviesFromSearch() {
   `
     }
   }
-    
   
 }
 
@@ -127,4 +131,11 @@ function renderPage() {
     renderWatchlistPagePlaceholder()
     break
   }
+}
+
+function showLoading() {
+  let h2 = document.createElement('h2')
+  h2.textContent = "Loading..."
+  h2.className = "loading"
+  resultsContainerEl.prepend(h2)
 }
