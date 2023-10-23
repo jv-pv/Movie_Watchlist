@@ -309,6 +309,10 @@ main {
 
 @media screen and (max-width: 790px) {
 
+    .movie-wrapper {
+        gap: 1rem;
+    }
+    
     .movie-poster{
         width: 9rem;
         height: auto;
@@ -339,6 +343,7 @@ main {
 
     .movie-wrapper {
         padding-block-end: 0.1rem;
+        gap: 0.7rem;
     }
 
     .movie-poster{
