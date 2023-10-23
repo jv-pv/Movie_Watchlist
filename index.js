@@ -16,6 +16,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".submit-btn")) {
     e.preventDefault();
     resultsContainerEl.innerHTML = "";
+    resultsContainerEl.style.justifyContent = "center"
     showLoading();
     let inputValue = searchBar.value;
     fetchSearchValue(inputValue);
@@ -25,6 +26,7 @@ document.addEventListener("click", (e) => {
     if (!localStorageWatchlist.includes(movieID)) {
       localStorageWatchlist.push(movieID);
       localStorage.setItem("movieWatchlist", JSON.stringify(localStorageWatchlist));
+      document.querySelector(`[data-add="${movieID}`).style.color = "red"
     }
   } else if (e.target.dataset.remove) {
     let movieID = e.target.dataset.remove
@@ -43,7 +45,6 @@ async function fetchSearchValue(searchValue) {
   try {
     if (!searchValue) {
       renderSearchPagePlaceholder();
-  
     } else {
       let response = await fetch(`${omdbURL}s=${searchValue}`, { method: "GET" });
   
@@ -51,7 +52,6 @@ async function fetchSearchValue(searchValue) {
         throw new Error("Network response not ok");
       } else {
         let data = await response.json();
-        console.log(data)
         if (data.Response === "False") {
           throw Error("Movie not found!");
         } else {
