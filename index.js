@@ -68,8 +68,10 @@ async function fetchSearchValue(searchValue) {
               imdbIDArray.push(searchResultID);
             }
           });
-          getMoviesFromSearch();
-          updateContainerPlacement()
+          setTimeout(()=> {
+            getMoviesFromSearch();
+            updateContainerPlacement()
+          }, 1500)
         }
       }
     }
@@ -91,7 +93,7 @@ async function getMoviesFromSearch() {
       const { Title, Poster, Plot, imdbRating, imdbID, Runtime, Genre } = data;
       let img = document.createElement("img");
       img.src =
-        Poster !== "N/A" ? Poster : "./images/blade_runner_placeholder.png";
+        Poster !== "N/A" ? Poster : "./images/No_Poster_Placeholder.jpg";
       img.alt = "Movie Poster";
       img.className = "movie-poster";
       resultsContainerEl.innerHTML += `
@@ -142,7 +144,7 @@ async function getWatchlist() {
 
         let img = document.createElement("img");
         img.src =
-          Poster !== "N/A" ? Poster : "./images/blade_runner_placeholder.png";
+          Poster !== "N/A" ? Poster : "./images/No_Poster_Placeholder.jpg";
         img.alt = "Movie Poster"
         img.className = "movie-poster"
 
@@ -155,7 +157,7 @@ async function getWatchlist() {
   
               <div class="title-rating">
                   <h2 class="movie-title">${Title}</h2>
-                  <p class="movie-rating"><i class="fa-solid fa-star" style="color: #ffea00;"></i> ${imdbRating}</p>
+                  <p class="movie-rating"><i class="fa-solid fa-star fa-spin" style="color: #ffea00;"></i> ${imdbRating}</p>
               </div>
               <div class="runtime-genres">
                   <p class="movie-runtime">${Runtime}</p>
@@ -219,10 +221,15 @@ function renderError() {
 }
 
 function showLoading() {
+  let div = document.createElement('div')
   let h2 = document.createElement("h2");
+  div.className = "loading-container"
+  div.innerHTML = `<i class="fa-solid fa-star-of-life fa-spin fa-xl"></i>
+  <i class="fa-solid fa-star-of-life fa-beat-fade fa-xl"></i>`
   h2.textContent = "Loading...";
   h2.className = "loading";
-  resultsContainerEl.prepend(h2);
+  div.append(h2)
+  resultsContainerEl.prepend(div)
 }
 
 function updateContainerPlacement() {
