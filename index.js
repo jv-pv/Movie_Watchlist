@@ -16,7 +16,7 @@ document.addEventListener("click", (e) => {
   if (e.target.matches(".submit-btn")) {
     e.preventDefault();
     resultsContainerEl.innerHTML = "";
-    resultsContainerEl.style.justifyContent = "center"
+    resultsContainerEl.style.justifyContent = "center";
     showLoading();
     let inputValue = searchBar.value;
     fetchSearchValue(inputValue);
@@ -25,19 +25,25 @@ document.addEventListener("click", (e) => {
     let movieID = e.target.dataset.add;
     if (!localStorageWatchlist.includes(movieID)) {
       localStorageWatchlist.push(movieID);
-      localStorage.setItem("movieWatchlist", JSON.stringify(localStorageWatchlist));
-      document.querySelector(`[data-add="${movieID}`).style.color = "red"
+      localStorage.setItem(
+        "movieWatchlist",
+        JSON.stringify(localStorageWatchlist)
+      );
+      document.querySelector(`[data-add="${movieID}`).style.color = "red";
     }
   } else if (e.target.dataset.remove) {
-    let movieID = e.target.dataset.remove
-    let index = localStorageWatchlist.indexOf(movieID)
-    console.log(index)
+    let movieID = e.target.dataset.remove;
+    let index = localStorageWatchlist.indexOf(movieID);
+    console.log(index);
     if (index >= 0) {
-      localStorageWatchlist.splice(index, 1)
-      localStorage.setItem('movieWatchlist', JSON.stringify(localStorageWatchlist))
-      getWatchlist()
-    } 
-    updateContainerPlacement()
+      localStorageWatchlist.splice(index, 1);
+      localStorage.setItem(
+        "movieWatchlist",
+        JSON.stringify(localStorageWatchlist)
+      );
+      getWatchlist();
+    }
+    updateContainerPlacement();
   }
 });
 
@@ -46,8 +52,10 @@ async function fetchSearchValue(searchValue) {
     if (!searchValue) {
       renderSearchPagePlaceholder();
     } else {
-      let response = await fetch(`${omdbURL}s=${searchValue}`, { method: "GET" });
-  
+      let response = await fetch(`${omdbURL}s=${searchValue}`, {
+        method: "GET",
+      });
+
       if (!response.ok) {
         throw new Error("Network response not ok");
       } else {
@@ -63,21 +71,24 @@ async function fetchSearchValue(searchValue) {
           let addedTitleSet = new Set();
           searchResults.forEach((result) => {
             let searchResultID = result.imdbID;
-            if (result.Title && !addedTitleSet.has(result.Title.toLowerCase())) {
+            if (
+              result.Title &&
+              !addedTitleSet.has(result.Title.toLowerCase())
+            ) {
               addedTitleSet.add(result.Title.toLowerCase());
               imdbIDArray.push(searchResultID);
             }
           });
-          setTimeout(()=> {
+          setTimeout(() => {
             getMoviesFromSearch();
-            updateContainerPlacement()
-          }, 1500)
+            updateContainerPlacement();
+          }, 1500);
         }
       }
     }
   } catch (error) {
-    console.log(error, "Search value not found!")
-    renderError()
+    console.error(error, "Search value not found!");
+    renderError();
   }
 }
 
@@ -130,7 +141,7 @@ async function getWatchlist() {
   if (localStorageWatchlist.length < 1) {
     renderWatchlistPagePlaceholder();
   } else {
-    showLoading()
+    showLoading();
     resultsContainerEl.innerHTML = "";
     for (let movieID of localStorageWatchlist) {
       let response = await fetch(`${omdbURL}i=${movieID}`);
@@ -145,8 +156,8 @@ async function getWatchlist() {
         let img = document.createElement("img");
         img.src =
           Poster !== "N/A" ? Poster : "./images/No_Poster_Placeholder.jpg";
-        img.alt = "Movie Poster"
-        img.className = "movie-poster"
+        img.alt = "Movie Poster";
+        img.className = "movie-poster";
 
         resultsContainerEl.innerHTML += `
         <div class="movie-wrapper">
@@ -177,7 +188,7 @@ async function getWatchlist() {
         `;
       }
     }
-    updateContainerPlacement()
+    updateContainerPlacement();
   }
 }
 
@@ -211,33 +222,31 @@ function renderPage() {
   }
 }
 
-
 function renderError() {
-  resultsContainerEl.innerHTML = ""
+  resultsContainerEl.innerHTML = "";
   let h2 = document.createElement("h2");
-  h2.textContent = "Unable to find what you are looking for! Please try another search.";
+  h2.textContent =
+    "Unable to find what you are looking for! Please try another search.";
   h2.className = "error";
   resultsContainerEl.prepend(h2);
 }
 
 function showLoading() {
-  let div = document.createElement('div')
+  let div = document.createElement("div");
   let h2 = document.createElement("h2");
-  div.className = "loading-container"
+  div.className = "loading-container";
   div.innerHTML = `<i class="fa-solid fa-star-of-life fa-spin fa-xl"></i>
-  <i class="fa-solid fa-star-of-life fa-beat-fade fa-xl"></i>`
+  <i class="fa-solid fa-star-of-life fa-beat-fade fa-xl"></i>`;
   h2.textContent = "Loading...";
   h2.className = "loading";
-  div.append(h2)
-  resultsContainerEl.prepend(div)
+  div.append(h2);
+  resultsContainerEl.prepend(div);
 }
 
 function updateContainerPlacement() {
-
   if (imdbIDArray.length > 0 || localStorageWatchlist.length > 0) {
-    resultsContainerEl.style.justifyContent = "flex-start"
+    resultsContainerEl.style.justifyContent = "flex-start";
   } else {
-    resultsContainerEl.style.justifyContent = "center"
+    resultsContainerEl.style.justifyContent = "center";
   }
-
 }
