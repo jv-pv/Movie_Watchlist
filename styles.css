@@ -173,6 +173,7 @@ form button {
     border: none;
     outline: none;
     border: 1px solid var(--gray-500);
+    cursor: pointer;
 }
 
 form button:hover {
@@ -298,8 +299,21 @@ main {
 
 /* loading and error */
 
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .loading {
+    margin-block-start: 2rem;
     text-align: center;
+}
+
+.fa-xl {
+    font-size: 50px;
+
 }
 
 .error {
