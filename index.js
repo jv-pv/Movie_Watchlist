@@ -210,18 +210,6 @@ function renderWatchlistPagePlaceholder() {
   `;
 }
 
-function renderPage() {
-  let currentPage = document.body.id;
-  switch (currentPage) {
-    case "search-page":
-      fetchSearchValue();
-      break;
-    case "watchlist-page":
-      getWatchlist();
-      break;
-  }
-}
-
 function renderError() {
   resultsContainerEl.innerHTML = "";
   let h2 = document.createElement("h2");
@@ -248,5 +236,17 @@ function updateContainerPlacement() {
     resultsContainerEl.style.justifyContent = "flex-start";
   } else {
     resultsContainerEl.style.justifyContent = "center";
+  }
+}
+
+function renderPage() {
+  let currentPage = document.body.id;
+  switch (currentPage) {
+    case "search-page":
+      fetchSearchValue();
+      break;
+    case "watchlist-page":
+      getWatchlist();
+      break;
   }
 }
